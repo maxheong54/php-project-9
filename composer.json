@@ -1,0 +1,28 @@
+{
+    "name": "hexlet/code",
+    "description": "Page analyzer",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Hexlet\\Code\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "maxheong54",
+            "email": "maxheong54@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^4.14",
+        "slim/psr7": "^1.7",
+        "slim/http": "^1.4",
+        "php-di/php-di": "^7.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.2"
+    }
+}
