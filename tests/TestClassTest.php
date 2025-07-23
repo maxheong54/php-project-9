@@ -1,12 +1,9 @@
 <?php
 
-namespace Hexlet\Code;
-
-require_once __DIR__ . '/../vendor/autoload.php';
-
 use PHPUnit\Framework\TestCase;
+use Hexlet\Code\Test;
 
-class TestClass extends TestCase
+class TestClassTest extends TestCase
 {
     public function testGetTest(): void
     {
