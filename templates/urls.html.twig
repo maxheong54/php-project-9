@@ -1,0 +1,35 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+	<div class="container-lg mt-3">
+		<h1>Сайты</h1>
+		<div class="table-responsive">
+			<table class="table table-bordered table-hover text-nowrap" data-test="urls">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Имя</th>
+						<th>Последняя проверка</th>
+						<th>Код ответа</th>
+					</tr>
+				</thead>
+				{% for url in urls %}
+					<tbody>
+						<tr>
+							<td>{{ url.getId() }}</td>
+							<td>
+								<a href="/urls/{{ url.getId() }}">
+									{{ url.getName() }}
+								</a>
+							</td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
