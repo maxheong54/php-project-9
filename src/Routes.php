@@ -22,10 +22,4 @@ class Routes
         });
     }
 
-
-
-    // $group->get('', ...)->setName('urls.index');
-    // $group->post('', ...)->setName('urls.store');
-    // $group->get('/{id}', ...)->setName('urls.show');
-    // $group->post('/{id}/checks', ...)->setName('urls.check');
 }
