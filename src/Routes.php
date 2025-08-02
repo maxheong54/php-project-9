@@ -21,5 +21,4 @@ class Routes
             $group->get('/{id:\d+}', 'Hexlet\Code\Controller\UrlController:getUrlAction')->setName('urls.show');
         });
     }
-
 }
