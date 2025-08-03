@@ -3,6 +3,8 @@
 namespace Hexlet\Code\Controller;
 
 use Hexlet\Code\Url;
+use Hexlet\Code\UrlCheckRepository;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -14,10 +16,12 @@ class UrlController extends BaseController
     ): ResponseInterface {
         $urls = $this->urlRepository->getEntities();
         $currentPath = $request->getUri()->getPath();
+        $checks = $this->urlCheckRepository;
 
         $params = [
             'urls' => $urls,
-            'currentPath' => $currentPath
+            'currentPath' => $currentPath,
+            'checks' => $checks
         ];
 
         return $this->view->render($response, 'urls.html.twig', $params);
@@ -47,8 +51,7 @@ class UrlController extends BaseController
             return $response->withHeader(
                 'Location',
                 $this->router->urlFor('urls.show', ['id' => (string) $url->getId()])
-            )
-                ->withStatus(302);
+            )->withStatus(302);
         }
 
         $currentPath = $request->getUri()->getPath();
@@ -76,13 +79,16 @@ class UrlController extends BaseController
             return $response->withStatus(404);
         }
 
-        $messages = $this->flash->getMessages();
+        $messages = (array) $this->flash->getMessages()['success'];
+        $flash = Arr::last($messages);
         $currentPath = $request->getUri()->getPath();
+        $checks = $this->urlCheckRepository->getChecks($id);
 
         $params = [
-            'flash' => $messages,
+            'flash' => $flash,
             'url' => $url,
-            'currentPath' => $currentPath
+            'currentPath' => $currentPath,
+            'checks' => $checks
         ];
 
         return $this->view->render($response, 'url.html.twig', $params);

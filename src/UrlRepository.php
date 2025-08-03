@@ -3,10 +3,11 @@
 namespace Hexlet\Code;
 
 use Carbon\Carbon;
+use PDO;
 
 class UrlRepository
 {
-    public function __construct(private \PDO $conn)
+    public function __construct(private PDO $conn)
     {
     }
 
@@ -87,7 +88,7 @@ class UrlRepository
         $createdAt = Carbon::now();
 
         $stmt->bindValue(':name', $name);
-        $stmt->bindValue(':created_at', $createdAt);
+        $stmt->bindValue(':created_at', $createdAt->toDateTimeString());
         $stmt->execute();
 
         $id = (int) $this->conn->lastInsertId();

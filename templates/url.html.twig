@@ -1,11 +1,11 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-	{% for message in flash.getMessages().success %}
+	{% if flash is not empty %}
         <div class="alert alert-success" role="alert">
-		    {{ message }}
-	    </div>
-    {% endfor %}    
+		    {{ flash }}
+	    </div> 
+	{% endif %}  
 	<div class="container-lg mt-3">
 		{% set url_name = url.getName() %}
 		<h1>Сайт:
@@ -29,7 +29,7 @@
 			</table>
 		</div>
 		<h2 class="mt-5 mb-3">Проверки</h2>
-		<form method="" action="/">
+		<form method="post" action="/urls/{{ url.getId() }}/checks">
 			<input type="submit" class="btn btn-primary" value="Запустить проверку">
 		</form>
 		<table class="table table-bordered table-hover" data-test="checks">
@@ -44,15 +44,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ($checks as $check): ?>
 				{% for check in checks %}
 					<tr>
-						<td>3</td>
-						<td>200</td>
+						<td>{{ check.getId() }}</td>
 						<td class="text-break"></td>
 						<td class="text-break"></td>
 						<td class="text-break"></td>
-						<td>2025-07-28 19:40:38</td>
+						<td class="text-break"></td>
+						<td>{{ check.getCreatedAt() }}</td>
 					</tr>
 				{% endfor %}
 			</tbody>

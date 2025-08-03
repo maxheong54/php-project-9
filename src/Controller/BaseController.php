@@ -3,6 +3,8 @@
 namespace Hexlet\Code\Controller;
 
 use Hexlet\Code\Url;
+use Hexlet\Code\UrlCheck;
+use Hexlet\Code\UrlCheckRepository;
 use Hexlet\Code\UrlRepository;
 use Hexlet\Code\UrlValidator;
 use PDO;
@@ -21,6 +23,8 @@ class BaseController
         protected UrlRepository $urlRepository,
         protected Url $url,
         protected UrlValidator $urlValidator,
+        protected UrlCheck $urlCheck,
+        protected UrlCheckRepository $urlCheckRepository,
         protected RouteParserInterface $router
     ) {
     }

@@ -11,7 +11,6 @@ class Url
 
     public function __construct(
         private ?string $name = null
-        // private ?Carbon $createdAt = null,
     ) {
     }
 
