@@ -4,6 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use DI\Container;
 use Dotenv\Dotenv;
+use GuzzleHttp\Client;
 use Hexlet\Code\Connection;
 use Hexlet\Code\Routes;
 use Hexlet\Code\TableCreator;
@@ -28,6 +29,7 @@ $container = new Container();
 $container->set(Twig::class, fn () => Twig::create(__DIR__ . '/../templates'));
 $container->set(PDO::class, fn() => $conn);
 $container->set(Messages::class, fn () => new Messages());
+$container->set(Client::class, fn() => new Client());
 
 $app = AppFactory::createFromContainer($container);
 

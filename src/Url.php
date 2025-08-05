@@ -8,15 +8,39 @@ class Url
 {
     private ?int $id = null;
     private ?Carbon $createdAt = null;
+    private ?string $name = null;
 
-    public function __construct(
-        private ?string $name = null
-    ) {
+    public static function fromArray(array $data): self
+    {
+        $url = new self();
+
+        if (isset($data['id'])) {
+            $url->setId((int) $data['id']);
+        }
+
+        if (isset($data['name'])) {
+            $url->setName($data['name']);
+        }
+
+        if (isset($data['created_at'])) {
+            $url->setCreatedAt(Carbon::parse($data['created_at']));
+        }
+
+        return $url;
     }
 
-    public static function create(string $name): self
+    // public function __construct(
+    //     private ?string $name = null
+    // ) {
+    // }
+
+    // public static function create(string $name): self
+    // {
+    //     return new self($name);
+    // }
+    public function setName(string $name): void
     {
-        return new self($name);
+        $this->name = $name;
     }
 
     public function setId(int $id): void

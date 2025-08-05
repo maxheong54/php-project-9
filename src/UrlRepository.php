@@ -3,6 +3,7 @@
 namespace Hexlet\Code;
 
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use PDO;
 
 class UrlRepository
@@ -11,7 +12,7 @@ class UrlRepository
     {
     }
 
-    public function getEntities(): array
+    public function getUrls(): array
     {
         $urls = [];
 
@@ -22,12 +23,8 @@ class UrlRepository
             return $urls;
         }
 
-        while ($row = $stmt->fetch()) {
-            $url = Url::create($row['name']);
-            $url->setId($row['id']);
-            $url->setCreatedAt(Carbon::parse($row['created_at']));
-            $urls[] = $url;
-        }
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $urls = Arr::map($rows, fn($row) => Url::fromArray($row));
 
         return $urls;
     }
@@ -39,12 +36,7 @@ class UrlRepository
         $stmt->execute([$id]);
 
         if ($row = $stmt->fetch()) {
-            $url = Url::create($row['name']);
-            $id = (int) $row['id'];
-            $createdAt = Carbon::parse($row['created_at']);
-            $url->setId($id);
-            $url->setCreatedAt($createdAt);
-            return $url;
+            return Url::fromArray($row);
         }
 
         return null;
@@ -53,7 +45,19 @@ class UrlRepository
     public function save(Url $url): void
     {
         if (!$this->exists($url)) {
-            $this->create($url);
+            $sql = "INSERT INTO urls (name, created_at) VALUES (:name, :created_at)";
+            $stmt = $this->conn->prepare($sql);
+
+            $name = $url->getName() ?? '';
+            $createdAt = Carbon::now();
+
+            $stmt->bindValue(':name', $name);
+            $stmt->bindValue(':created_at', $createdAt->toDateTimeString());
+            $stmt->execute();
+
+            $id = (int) $this->conn->lastInsertId();
+            $url->setId($id);
+            $url->setCreatedAt($createdAt);
         }
     }
 
@@ -77,22 +81,5 @@ class UrlRepository
         }
 
         return false;
-    }
-
-    private function create(Url $url): void
-    {
-        $sql = "INSERT INTO urls (name, created_at) VALUES (:name, :created_at)";
-        $stmt = $this->conn->prepare($sql);
-
-        $name = $url->getName() ?? '';
-        $createdAt = Carbon::now();
-
-        $stmt->bindValue(':name', $name);
-        $stmt->bindValue(':created_at', $createdAt->toDateTimeString());
-        $stmt->execute();
-
-        $id = (int) $this->conn->lastInsertId();
-        $url->setId($id);
-        $url->setCreatedAt($createdAt);
     }
 }

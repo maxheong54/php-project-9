@@ -12,15 +12,41 @@ class UrlCheck
     private ?string $title = null;
     private ?string $description = null;
     private ?Carbon $createdAt = null;
+    private ?int $urlId = null;
 
-    public function __construct(
-        private ?int $urlId = null
-    ) {
-    }
-
-    public static function create(int $urlId): self
+    public static function fromArray(array $data): self
     {
-        return new self($urlId);
+        $check = new self();
+
+        if (isset($data['id'])) {
+            $check->setId((int) $data['id']);
+        }
+
+        if (isset($data['url_id'])) {
+            $check->setUrlId((int) $data['url_id']);
+        }
+
+        if (isset($data['status_code'])) {
+            $check->setStatusCode((int) $data['status_code']);
+        }
+
+        if (isset($data['h1'])) {
+            $check->setH1($data['h1']);
+        }
+
+        if (isset($data['title'])) {
+            $check->setTitle($data['title']);
+        }
+
+        if (isset($data['description'])) {
+            $check->setDescription($data['description']);
+        }
+
+        if (isset($data['created_at'])) {
+            $check->setCreatedAt(Carbon::parse($data['created_at']));
+        }
+
+        return $check;
     }
 
     public function getId(): ?int

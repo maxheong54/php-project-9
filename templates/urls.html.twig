@@ -17,14 +17,16 @@
 				{% for url in urls %}
 					<tbody>
 						<tr>
+							{% set urlId = url.getId() %}
+							{% set check = checks.getLastCheck(urlId) %}
 							<td>{{ url.getId() }}</td>
 							<td>
-								<a href="/urls/{{ url.getId() }}">
+								<a href="/urls/{{ urlId }}">
 									{{ url.getName() }}
 								</a>
 							</td>
-							<td>{{ checks.getLastCheck(url.getId()) }}</td>
-							<td></td>
+							<td>{{ check.getCreatedAt() }}</td>
+							<td>{{ check.getStatusCode() }}</td>
 						</tr>
 					</tbody>
 				{% endfor %}

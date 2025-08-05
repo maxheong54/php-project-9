@@ -1,11 +1,11 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-	{% if flash is not empty %}
-        <div class="alert alert-success" role="alert">
-		    {{ flash }}
-	    </div> 
-	{% endif %}  
+	{% for key, value in flash %}
+		<div class="alert alert-{{ key == 'success' ? 'success' : 'danger' }}">
+			{{ value.0 }}
+		</div>
+	{% endfor %}
 	<div class="container-lg mt-3">
 		{% set url_name = url.getName() %}
 		<h1>Сайт:
@@ -47,7 +47,7 @@
 				{% for check in checks %}
 					<tr>
 						<td>{{ check.getId() }}</td>
-						<td class="text-break"></td>
+						<td>{{ check.getStatusCode() }}</td>
 						<td class="text-break"></td>
 						<td class="text-break"></td>
 						<td class="text-break"></td>

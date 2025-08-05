@@ -3,8 +3,6 @@
 namespace Hexlet\Code\Controller;
 
 use Hexlet\Code\Url;
-use Hexlet\Code\UrlCheckRepository;
-use Illuminate\Support\Arr;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -14,7 +12,7 @@ class UrlController extends BaseController
         ServerRequestInterface $request,
         ResponseInterface $response
     ): ResponseInterface {
-        $urls = $this->urlRepository->getEntities();
+        $urls = $this->urlRepository->getUrls();
         $currentPath = $request->getUri()->getPath();
         $checks = $this->urlCheckRepository;
 
@@ -36,8 +34,11 @@ class UrlController extends BaseController
         $validator = $this->urlValidator;
         $errors = $validator->validateUrl($data);
 
-        $urlName = $data['url']['name'];
-        $url = Url::create($urlName);
+        $urlNameParts = parse_url($data['url']['name']);
+        $scheme = $urlNameParts['scheme'] ?? '';
+        $host = $urlNameParts['host'] ?? '';
+        $urlName = "{$scheme}://{$host}";
+        $url = Url::fromArray(['name' => $urlName]);
 
         if (count($errors) === 0) {
             if ($this->urlRepository->exists($url)) {
@@ -79,13 +80,12 @@ class UrlController extends BaseController
             return $response->withStatus(404);
         }
 
-        $messages = (array) $this->flash->getMessages()['success'];
-        $flash = Arr::last($messages);
+        $messages = (array) $this->flash->getMessages();
         $currentPath = $request->getUri()->getPath();
         $checks = $this->urlCheckRepository->getChecks($id);
 
         $params = [
-            'flash' => $flash,
+            'flash' => $messages,
             'url' => $url,
             'currentPath' => $currentPath,
             'checks' => $checks
