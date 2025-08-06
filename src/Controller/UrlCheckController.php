@@ -52,7 +52,7 @@ class UrlCheckController extends BaseController
             ]);
 
             $this->urlCheckRepository->save($urlCheck);
-            $this->flash->addMessage('success', 'Проверка успешно выполнена');
+            $this->flash->addMessage('success', 'Страница успешно проверена');
         } catch (ConnectException $e) {
             $this->flash->addMessage('error', 'Ошибка сети: проверка не выполнена');
         } catch (TransferException $e) {
