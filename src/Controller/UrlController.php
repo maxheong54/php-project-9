@@ -76,8 +76,12 @@ class UrlController extends BaseController
         $url = $this->urlRepository->find($id);
 
         if ($url === null) {
-            $response->getBody()->write('Page not found');
-            return $response->withStatus(404);
+            // $response->getBody()->write('Page not found');
+            // return $response->withStatus(404);
+            return $this->view->render(
+                $response->withStatus(404),
+                '404.html.twig'
+            );
         }
 
         $messages = (array) $this->flash->getMessages();
