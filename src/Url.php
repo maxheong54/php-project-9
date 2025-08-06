@@ -29,15 +29,6 @@ class Url
         return $url;
     }
 
-    // public function __construct(
-    //     private ?string $name = null
-    // ) {
-    // }
-
-    // public static function create(string $name): self
-    // {
-    //     return new self($name);
-    // }
     public function setName(string $name): void
     {
         $this->name = $name;

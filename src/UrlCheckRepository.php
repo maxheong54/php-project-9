@@ -51,19 +51,22 @@ class UrlCheckRepository
 
         return null;
     }
+
     public function save(UrlCheck $urlCheck): void
     {
-        $sql = "INSERT INTO url_checks (url_id, created_at, status_code)
-            VALUES (:url_id, :created_at, :status_code)";
+        $sql = "INSERT INTO url_checks (url_id, created_at, status_code, h1, title, description)
+            VALUES (:url_id, :created_at, :status_code, :h1, :title, :description)";
         $stmt = $this->conn->prepare($sql);
 
-        $url_id = $urlCheck->getUrlId();
         $createdAt = Carbon::now();
-        $statusCode = $urlCheck->getStatusCode();
 
-        $stmt->bindValue(':url_id', $url_id);
+        $stmt->bindValue(':url_id', $urlCheck->getUrlId());
         $stmt->bindValue(':created_at', $createdAt->toDateTimeString());
-        $stmt->bindValue(':status_code', $statusCode);
+        $stmt->bindValue(':status_code', $urlCheck->getStatusCode());
+        $stmt->bindValue(':h1', $urlCheck->getH1());
+        $stmt->bindValue(':title', $urlCheck->getTitle());
+        $stmt->bindValue(':description', $urlCheck->getDescription());
+
         $stmt->execute();
 
         $id = (int) $this->conn->lastInsertId();

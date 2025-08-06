@@ -2,6 +2,7 @@
 
 namespace Hexlet\Code\Controller;
 
+use DiDom\Element;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\TransferException;
 use Hexlet\Code\Controller\BaseController;
@@ -19,7 +20,6 @@ class UrlCheckController extends BaseController
         $urlId = (int) $args['id'];
         $url = $this->urlRepository->find($urlId);
         $urlName = $url?->getName() ?? '';
-        $urlCheck = UrlCheck::fromArray(['url_id' => $urlId]);
 
         try {
             $httpResponse = $this->httpClient->request(
@@ -30,8 +30,27 @@ class UrlCheckController extends BaseController
                     'timeout' => 3.0
                 ]
             );
+
+            $html = $httpResponse->getBody()->getContents();
+            $this->dom->loadHtml($html);
+
             $statusCode = $httpResponse->getStatusCode();
-            $urlCheck->setStatusCode($statusCode);
+
+            $elem = $this->dom->first('h1');
+            $h1 = $elem instanceof Element ? $elem->text() : null;
+            $elem = $this->dom->first('title');
+            $title = $elem instanceof Element ? $elem->text() : null;
+            $elem = $this->dom->first('meta[name=description]');
+            $description = $elem instanceof Element ? $elem->attr('content') : null;
+
+            $urlCheck = UrlCheck::fromArray([
+                'url_id' => $urlId,
+                'status_code' => $statusCode,
+                'h1' => $h1,
+                'title' => $title,
+                'description' => $description
+            ]);
+
             $this->urlCheckRepository->save($urlCheck);
             $this->flash->addMessage('success', 'Проверка успешно выполнена');
         } catch (ConnectException $e) {
@@ -43,6 +62,6 @@ class UrlCheckController extends BaseController
         return $response->withHeader(
             'Location',
             $this->router->urlFor('urls.show', ['id' => $args['id']])
-        )->withStatus(302);
+        )->withStatus(303);
     }
 }

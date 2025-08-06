@@ -48,9 +48,9 @@
 					<tr>
 						<td>{{ check.getId() }}</td>
 						<td>{{ check.getStatusCode() }}</td>
-						<td class="text-break"></td>
-						<td class="text-break"></td>
-						<td class="text-break"></td>
+						<td>{{ check.geth1() }}</td>
+						<td>{{ check.getTitle() }}</td>
+						<td>{{ check.getDescription() }}</td>
 						<td>{{ check.getCreatedAt() }}</td>
 					</tr>
 				{% endfor %}

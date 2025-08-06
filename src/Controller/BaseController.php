@@ -2,6 +2,7 @@
 
 namespace Hexlet\Code\Controller;
 
+use DiDom\Document;
 use GuzzleHttp\Client;
 use Hexlet\Code\Url;
 use Hexlet\Code\UrlCheck;
@@ -26,7 +27,8 @@ class BaseController
         protected UrlCheck $urlCheck,
         protected UrlCheckRepository $urlCheckRepository,
         protected RouteParserInterface $router,
-        protected Client $httpClient
+        protected Client $httpClient,
+        protected Document $dom
     ) {
     }
 }

@@ -31,8 +31,7 @@ class UrlController extends BaseController
     ): ResponseInterface {
         $data = (array) $request->getParsedBody();
 
-        $validator = $this->urlValidator;
-        $errors = $validator->validateUrl($data);
+        $errors = $this->urlValidator->validateUrl($data);
 
         $urlNameParts = parse_url($data['url']['name']);
         $scheme = $urlNameParts['scheme'] ?? '';
@@ -52,11 +51,12 @@ class UrlController extends BaseController
             return $response->withHeader(
                 'Location',
                 $this->router->urlFor('urls.show', ['id' => (string) $url->getId()])
-            )->withStatus(302);
+            )->withStatus(303);
         }
 
         $currentPath = $request->getUri()->getPath();
 
+        $url->setName($data['url']['name']);
         $params = [
             'url' => $url,
             'errors' => $errors,

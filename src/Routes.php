@@ -2,8 +2,6 @@
 
 namespace Hexlet\Code;
 
-use Hexlet\Code\Controller\IndexController;
-use Hexlet\Code\Controller\UrlController;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 

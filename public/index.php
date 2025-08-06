@@ -3,6 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use DI\Container;
+use DiDom\Document;
 use Dotenv\Dotenv;
 use GuzzleHttp\Client;
 use Hexlet\Code\Connection;
@@ -30,6 +31,7 @@ $container->set(Twig::class, fn () => Twig::create(__DIR__ . '/../templates'));
 $container->set(PDO::class, fn() => $conn);
 $container->set(Messages::class, fn () => new Messages());
 $container->set(Client::class, fn() => new Client());
+$container->set(Document::class, fn() => new Document());
 
 $app = AppFactory::createFromContainer($container);
 
@@ -42,9 +44,5 @@ $container->set(
 );
 
 Routes::init($app);
-
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
 
 $app->run();
