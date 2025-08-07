@@ -4,9 +4,13 @@ namespace Hexlet\Code;
 
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
+use DI\Container;
 
 class Routes
 {
+    /**
+     * @param App<Container> $app $name
+     */
     public static function init(App $app): void
     {
         $app->get('/', 'Hexlet\Code\Controller\IndexController:indexAction')->setName('index');
