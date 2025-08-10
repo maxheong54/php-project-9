@@ -52,7 +52,7 @@ class UrlRepository
             $createdAt = Carbon::now();
 
             $stmt->bindValue(':name', $name);
-            $stmt->bindValue(':created_at', $createdAt->toDateTimeString());
+            $stmt->bindValue(':created_at', $createdAt->format('Y-m-d H:i:s.u'));
             $stmt->execute();
 
             $id = (int) $this->conn->lastInsertId();

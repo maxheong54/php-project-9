@@ -61,7 +61,7 @@ class UrlCheckRepository
         $createdAt = Carbon::now();
 
         $stmt->bindValue(':url_id', $urlCheck->getUrlId());
-        $stmt->bindValue(':created_at', $createdAt->toDateTimeString());
+        $stmt->bindValue(':created_at', $createdAt->format('Y-m-d H:i:s.u'));
         $stmt->bindValue(':status_code', $urlCheck->getStatusCode());
         $stmt->bindValue(':h1', $urlCheck->getH1());
         $stmt->bindValue(':title', $urlCheck->getTitle());

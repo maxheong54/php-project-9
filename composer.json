@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Hexlet\\Code\\": "src/"
+            "Hexlet\\Code\\": "src/",
+            "Tests\\": "tests/"
         }
     },
     "authors": [
@@ -26,7 +27,8 @@
         "nesbot/carbon": "^3.10",
         "slim/flash": "^0.4.0",
         "guzzlehttp/guzzle": "^7.0",
-        "imangazaliev/didom": "^2.0"
+        "imangazaliev/didom": "^2.0",
+        "fakerphp/faker": "^1.24"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
