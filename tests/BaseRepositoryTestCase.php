@@ -3,11 +3,8 @@
 namespace Tests;
 
 use Dotenv\Dotenv;
-use Faker\Factory;
-use Faker\Generator;
 use Hexlet\Code\Connection;
 use PDO;
-use PHPUnit\Framework\TestCase;
 
 class BaseRepositoryTestCase extends BaseTestCase
 {

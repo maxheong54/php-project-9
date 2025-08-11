@@ -3,6 +3,7 @@
 namespace Hexlet\Code;
 
 use Exception;
+use InvalidArgumentException;
 use PDO;
 use PDOException;
 use RuntimeException;
@@ -16,7 +17,7 @@ final class Connection
         $params = parse_url($dataBaseUrl);
 
         if ($params === false) {
-            throw new RuntimeException("Error reading database url.");
+            throw new InvalidArgumentException("Error reading database url.");
         }
 
         $port = $params['port'] ?? self::DEFAULT_DATABASE_PORT;
@@ -35,7 +36,7 @@ final class Connection
                 [PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION]
             );
         } catch (Exception | PDOException $e) {
-            throw new RuntimeException("Error database connection: " . $e->getMessage());
+            throw new PDOException("Error database connection: " . $e->getMessage());
         }
 
         return $pdo;
