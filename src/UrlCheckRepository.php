@@ -28,11 +28,9 @@ class UrlCheckRepository
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $checks = Arr::map($rows, function ($row) {
+        return Arr::map($rows, function ($row) {
             return UrlCheck::fromArray($row);
         });
-
-        return $checks;
     }
 
     public function getLastCheck(int $urlId): ?UrlCheck

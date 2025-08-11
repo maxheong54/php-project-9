@@ -14,19 +14,15 @@ class UrlRepository
 
     public function getUrls(): array
     {
-        $urls = [];
-
         $sql = "SELECT * FROM urls";
         $stmt = $this->conn->query($sql);
 
         if ($stmt === false) {
-            return $urls;
+            return [];
         }
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $urls = Arr::map($rows, fn($row) => Url::fromArray($row));
-
-        return $urls;
+        return Arr::map($rows, fn($row) => Url::fromArray($row));
     }
 
     public function find(int $id): ?Url
