@@ -2,6 +2,9 @@
 
 namespace Hexlet\Code;
 
+use Hexlet\Code\Controller\IndexController;
+use Hexlet\Code\Controller\UrlCheckController;
+use Hexlet\Code\Controller\UrlController;
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 use DI\Container;
@@ -13,19 +16,21 @@ class Routes
      */
     public static function init(App $app): void
     {
-        $app->get('/', 'Hexlet\Code\Controller\IndexController:indexAction')->setName('index');
+        $app->get('/', IndexController::class . ':indexAction')->setName('index');
 
         $app->group('/urls', function (RouteCollectorProxy $group): void {
-            $group->post('', 'Hexlet\Code\Controller\UrlController:createAction')
+
+            $group->post('', UrlController::class . ':createAction')
                 ->setName('urls.store');
 
-            $group->post('/{id:\d+}/checks', 'Hexlet\Code\Controller\UrlCheckController:checkUrl')
+            $group->post('/{id:\d+}/checks', UrlCheckController::class . ':checkUrl')
                 ->setName('urls.check');
 
-            $group->get('', 'Hexlet\Code\Controller\UrlController:indexAction')
+            $group->get('', UrlController::class . ':indexAction')
+
                 ->setName('urls.index');
 
-            $group->get('/{id:\d+}', 'Hexlet\Code\Controller\UrlController:getUrlAction')
+            $group->get('/{id:\d+}', UrlController::class . ':getUrlAction')
                 ->setName('urls.show');
         });
     }
