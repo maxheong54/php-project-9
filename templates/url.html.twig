@@ -2,7 +2,7 @@
 
 {% block content %}
 	{% for key, value in flash %}
-		<div class="alert alert-{{ key == 'success' ? 'success' : 'danger' }}">
+		<div class="alert alert-{{ key == 'success' ? 'success' : key == 'error' ? 'danger' : 'warning' }}">
 			{{ value.0 }}
 		</div>
 	{% endfor %}

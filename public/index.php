@@ -41,7 +41,7 @@ $errorHandler = new HttpErrorHandler($callableResolver, $responseFactory, $conta
 $app->addRoutingMiddleware();
 
 $app->add(TwigMiddleware::create($app, $container->get(Twig::class)));
-$errorMiddleware = $app->addErrorMiddleware(false, false, false);
+$errorMiddleware = $app->addErrorMiddleware(false, true, true);
 
 
 $errorMiddleware->setDefaultErrorHandler($errorHandler);
