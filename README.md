@@ -4,7 +4,6 @@
 [![check](https://github.com/maxheong54/php-project-9/actions/workflows/chek.yml/badge.svg?branch=main)](https://github.com/maxheong54/php-project-9/actions/workflows/chek.yml)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=maxheong54_php-project-9&metric=bugs)](https://sonarcloud.io/summary/new_code?id=maxheong54_php-project-9)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=maxheong54_php-project-9&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=maxheong54_php-project-9)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=maxheong54_php-project-9&metric=coverage)](https://sonarcloud.io/summary/new_code?id=maxheong54_php-project-9)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=maxheong54_php-project-9&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=maxheong54_php-project-9)
 
 ## About
@@ -30,7 +29,7 @@ This is a site that analyzes the specified pages for SEO suitability
 This command installs PHP dependencies via Composer and sets up the environment:
 
 ```bash
-git clone https://github.com/maxheong54/php-project-9.git
+git clone https://github.com/maxheong54/page-analyzer.git
 cd php-project-9
 make install
 ```
