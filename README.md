@@ -30,7 +30,7 @@ This command installs PHP dependencies via Composer and sets up the environment:
 
 ```bash
 git clone https://github.com/maxheong54/page-analyzer.git
-cd php-project-9
+cd page-analyzer
 make install
 ```
 
